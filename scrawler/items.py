@@ -11,3 +11,8 @@ from scrapy.item import Item, Field
 class NewsItem(Item):
     title = Field()
     url = Field()
+    
+class NewsStory(Item):
+    title = Field()
+    body = Field()
+    author = Field()
