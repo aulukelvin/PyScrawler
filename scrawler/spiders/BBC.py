@@ -2,6 +2,7 @@
 from scrapy import Spider, Request
 from scrapy.selector import Selector
 from scrawler.items import NewsItem, NewsStory
+import json
 
 class ExampleSpider(Spider):
     name = "bbcSpider"
@@ -33,9 +34,15 @@ class ExampleSpider(Spider):
                 yield Request(self.Readability_Proxy + self.BASE_URL + newsItem['url'][0], callback = self.parse_news_story)
                 
     def parse_news_story(self, response):
+        jsonresponse = json.loads(response.body_as_unicode())
+        
         story = NewsStory()
-        story['title'] = "asfdasdfasdfsadf"
-        self.logger.info("safdddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
+        story['title'] = jsonresponse["title"]
+        story['body'] = jsonresponse["content"]
+        story['excerpt'] = jsonresponse["excerpt"]
+        story['url'] = jsonresponse["url"]
+        
+        self.logger.info("story: %s", story)
         return story
         
             

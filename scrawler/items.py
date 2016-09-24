@@ -15,4 +15,5 @@ class NewsItem(Item):
 class NewsStory(Item):
     title = Field()
     body = Field()
-    author = Field()
+    excerpt = Field()
+    url = Field()
